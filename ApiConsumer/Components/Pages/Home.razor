@@ -1,0 +1,31 @@
+﻿@page "/"
+@using ApiConsumer.Components.Shared
+
+
+@inject IDummyJsonApi DummyJsonApi
+
+
+<PageTitle>Home</PageTitle>
+
+@if (_productsModels.Any())
+{
+    //products Model?
+    @foreach (var productModel in _productsModels)
+    {
+        <Card
+        Id=@productModel.Id
+        Category=@productModel.Description
+        Title=@productModel.Title
+        ImageUrl=@productModel.Images.FirstOrDefault()
+        ></Card>
+    }
+}
+
+@code{
+    private List<ProductModel> _productsModels = new();
+
+    protected override Task OnParametersSetAsync()
+    {
+        return base.OnParametersSetAsync();
+    }
+}
