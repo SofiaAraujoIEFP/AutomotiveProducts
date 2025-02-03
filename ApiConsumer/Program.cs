@@ -1,5 +1,6 @@
 using ApiConsumer.Components;
 using ApiConsumer.Components.Shared;
+using MudBlazor.Services;
 using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,9 @@ builder.Services.AddRazorComponents()
 builder.Services
     .AddRefitClient<IWebAPI>()
     .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7224"));
+
+builder.Services.AddMudServices();
+
 
 var app = builder.Build();
 
