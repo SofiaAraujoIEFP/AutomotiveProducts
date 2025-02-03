@@ -1,8 +1,8 @@
 ﻿@page "/"
 @using ApiConsumer.Components.Shared
+@using Products.Shared.Models
 
-
-@inject IDummyJsonApi DummyJsonApi
+@inject IWebAPI WebAPI
 
 
 <PageTitle>Home</PageTitle>
@@ -16,7 +16,7 @@
         Id=@productModel.Id
         Category=@productModel.Description
         Title=@productModel.Title
-        ImageUrl=@productModel.Images.FirstOrDefault()
+        ImageUrl=@productModel.ImageUrl
         ></Card>
     }
 }

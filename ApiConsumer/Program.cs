@@ -1,10 +1,16 @@
 using ApiConsumer.Components;
+using ApiConsumer.Components.Shared;
+using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services
+    .AddRefitClient<IWebAPI>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7224"));
 
 var app = builder.Build();
 
