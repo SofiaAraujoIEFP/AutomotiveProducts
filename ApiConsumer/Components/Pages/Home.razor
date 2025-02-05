@@ -1,31 +1,68 @@
 ﻿@page "/"
 @using ApiConsumer.Components.Shared
 @using Products.Shared.Models
+@using NavigationManager NavigationManager
+@rendermode InteractiveServer
 
 @inject IWebAPI WebAPI
 
 
 <PageTitle>Home</PageTitle>
 
+@* products Model? *@
 @if (_productsModels.Any())
 {
-    //products Model?
+    <div class="d-flex flex-wrap">
     @foreach (var productModel in _productsModels)
     {
-        <Card
+        <MudCard class="w-25 m-2">
+ 
+            <MudCarousel Class="mud-width-full" ShowArrows="@(productModel.ImageUrl.Count >1)" ShowBullets="@(productModel.ImageUrl.Count >1)" ItemsSource="@productModel?.ImageUrl" Style="height:200px"> 
+                <ItemTemplate>
+                    <MudImage Src="@context" Height="200" ObjectFit=ObjectFit.Cover></MudImage>
+                </ItemTemplate>
+            </MudCarousel>
+            <MudCardContent>
+                <MudText Typo="Typo.body2">@productModel.Title</MudText>
+                <MudText Typo="Typo.body2">@productModel.Description</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick"() => "Navigate(productModel.Id)">Share</MudButton>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
+            </MudCardActions>
+        </MudCard>
+    }
+</div>
+}
+
+@*  <Card
         Id=@productModel.Id
         Category=@productModel.Description
         Title=@productModel.Title
         ImageUrl=@productModel.ImageUrl
-        ></Card>
-    }
-}
+        ></Card> *@
 
-@code{
+@* @code{
     private List<ProductModel> _productsModels = new();
 
     protected override Task OnParametersSetAsync()
     {
         return base.OnParametersSetAsync();
     }
-}
+} *@
+
+ @code {
+    private List<ProductModel> _productsModels = new();
+
+    private void Navigate(int Id)
+    {
+        NavigationManager.NavigateTo($"/getproduct/{Id}");
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var response = await WebAPI.GetProducts();
+
+        _productsModels  = response.ProductsModels 
+    }
+} 

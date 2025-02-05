@@ -1,0 +1,40 @@
+﻿@page "/getproduct/{Id:int}"
+@using ApiConsumer.Components.Shared
+@using Products.Shared.Models
+@using MudBlazor
+@inject IWebAPI WebAPI
+@rendermode InteractiveServer
+
+
+<MudCarousel Class="mud-width-full" ItemsSource="@_productDetail?.ImageUrl" Style="height:200px">
+    <ItemTemplate>
+        <MudImage Src="@context" Height="200" ObjectFit="ObjectFit.Cover"></MudImage>
+    </ItemTemplate>
+</MudCarousel>
+
+@* @code {
+    private productmodel _productdetail = new();
+    private transition transition = transition.slide;
+
+    [parameter]
+    public int id { get; set; }
+
+    protected override async task onparameterssetasync()
+    {
+        _productdetail = await webapi.getproduct(id);
+    }
+} *@
+
+@code {
+    private ProductModel _productDetail = new();
+    private Transition transition = Transition.Slide;
+ 
+    [Parameter]
+    public int Id {get; set;}
+ 
+    protected override async Task OnParametersSetAsync()
+    {
+        _productDetail = await WebAPI.GetProduct(Id);
+    }
+ }
+
