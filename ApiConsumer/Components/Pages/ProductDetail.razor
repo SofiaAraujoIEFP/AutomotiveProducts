@@ -1,4 +1,4 @@
-﻿@page "/getproduct/{Id:int}"
+﻿@* @page "/getproduct/{Id:int}"
 @using ApiConsumer.Components.Shared
 @using Products.Shared.Models
 @using MudBlazor
@@ -11,8 +11,8 @@
         <MudImage Src="@context" Height="200" ObjectFit="ObjectFit.Cover"></MudImage>
     </ItemTemplate>
 </MudCarousel>
-
-@* @code {
+//comentado
+ @code {
     private productmodel _productdetail = new();
     private transition transition = transition.slide;
 
@@ -23,8 +23,8 @@
     {
         _productdetail = await webapi.getproduct(id);
     }
-} *@
-
+}
+//até aqui
 @code {
     private ProductModel _productDetail = new();
     private Transition transition = Transition.Slide;
@@ -37,4 +37,4 @@
         _productDetail = await WebAPI.GetProduct(Id);
     }
  }
-
+ *@

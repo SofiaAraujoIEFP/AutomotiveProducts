@@ -1,7 +1,7 @@
 ﻿@page "/"
 @using ApiConsumer.Components.Shared
 @using Products.Shared.Models
-@using NavigationManager NavigationManager
+@* @inject NavigationManager NavigationManager /comentado pelo ruben *@ 
 @rendermode InteractiveServer
 
 @inject IWebAPI WebAPI
@@ -9,8 +9,21 @@
 
 <PageTitle>Home</PageTitle>
 
-@* products Model? *@
-@if (_productsModels.Any())
+<MudTable Items="_productsModels" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Description</MudTh>
+        <MudTh>Title</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Description">@context.Description</MudTd>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+    </RowTemplate>
+</MudTable>
+
+
+@*  @if (_productsModels.Any())
 {
     <div class="d-flex flex-wrap">
     @foreach (var productModel in _productsModels)
@@ -33,36 +46,21 @@
         </MudCard>
     }
 </div>
-}
-
-@*  <Card
-        Id=@productModel.Id
-        Category=@productModel.Description
-        Title=@productModel.Title
-        ImageUrl=@productModel.ImageUrl
-        ></Card> *@
-
-@* @code{
-    private List<ProductModel> _productsModels = new();
-
-    protected override Task OnParametersSetAsync()
-    {
-        return base.OnParametersSetAsync();
-    }
 } *@
 
- @code {
+@code {
     private List<ProductModel> _productsModels = new();
 
-    private void Navigate(int Id)
+    private void navigate(int id)
     {
-        NavigationManager.NavigateTo($"/getproduct/{Id}");
+        // navigationmanager.navigateto($"/productdetail/{id}"); //comentado pelo ruben
     }
 
     protected override async Task OnParametersSetAsync()
     {
         var response = await WebAPI.GetProducts();
 
-        _productsModels  = response.ProductsModels 
+        _productsModels = response;
     }
 } 
+ 
