@@ -22,7 +22,6 @@
     </RowTemplate>
 </MudTable>
 
-
 @*  @if (_productsModels.Any())
 {
     <div class="d-flex flex-wrap">
@@ -49,7 +48,7 @@
 } *@
 
 @code {
-    private List<ProductModel> _productsModels = new();
+    private List<AutomotiveProducts.Entities.Products> _productsModels = new();
 
     private void navigate(int id)
     {
