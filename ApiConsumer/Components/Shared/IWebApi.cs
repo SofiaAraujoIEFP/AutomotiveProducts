@@ -2,21 +2,20 @@
 using Products.Shared.Models;
 using Refit;
 namespace ApiConsumer.Components.Shared
-
 {
-        internal interface IWebAPI
-        {
-            [Get("/getproducts")]
-            Task<List<ProductModel>> GetProducts();
-            [Get("/getproduct")]
-            Task<ProductModel> GetProduct(int id);
-            [Post("/addproduct")]
-            Task<HttpResponseMessage> AddProduct([FromBody] ProductModel productModel);
-            [Delete("/deletetodo")]
-            Task<HttpResponseMessage> DeleteProduct(long id);
-            [Put("/updateproduct")]
-            Task<HttpResponseMessage> UpdateProduct([FromBody] ProductModel productModel);
+    internal interface IWebAPI
+    {
+        [Get("/getproducts")]
+        Task<List<AutomotiveProducts.Entities.Products>> GetProducts();
 
-        }
+        [Post("/saveproducts")]
+        Task<HttpResponseMessage> SaveProducts([FromBody] Product product);
+
+        [Put("/updateproducts")]
+        Task<HttpResponseMessage> UpdateProducts([FromBody] Product product);
+
+        [Get("/getproduct/{id}")]
+        Task<AutomotiveProducts.Entities.Products> GetProduct(int id);
     }
+}
 
