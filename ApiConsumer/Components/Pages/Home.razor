@@ -14,11 +14,13 @@
         <MudTh>Id</MudTh>
         <MudTh>Description</MudTh>
         <MudTh>Title</MudTh>
+        <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Id">@context.Id</MudTd>
         <MudTd DataLabel="Description">@context.Description</MudTd>
-        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Actions"></MudTd>
+        <MudButton Color="Color.Primary" OnClick="@(() => UpdateProducts(context.Id))">Edit</MudButton>
     </RowTemplate>
 </MudTable>
 
@@ -62,4 +64,8 @@
         _productsModels = response;
     }
 } 
+
+ @code {
+    void UpdateProduct(int id) { Console.WriteLine($"Update Product: {id}"); }
+ }
  

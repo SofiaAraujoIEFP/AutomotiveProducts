@@ -45,7 +45,6 @@ namespace IAutomotiveProductsApi.Controllers
                 oldProduct.Title = product.Title;
                 oldProduct.Category = product.Category;
                 oldProduct.Description = product.Description;
-                oldProduct.ImageUrl = product.ImageUrl;
             }
 
             var result = await _businessDbContext.SaveChangesAsync();
