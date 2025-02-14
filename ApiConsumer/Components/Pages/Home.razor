@@ -5,10 +5,10 @@
 @rendermode InteractiveServer
 
 @inject IWebAPI WebAPI
-
+//Ter adicionado um botão em cima da tabela principal new product que direcione a uma nova página para que o cliente possa adicionar produtos
 
 <PageTitle>Home</PageTitle>
-
+<MudButton Color="Color.Primary" OnClick="@(() => New(context.Id))">Edit</MudButton> //alterar
 <MudTable Items="_productsModels" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
         <MudTh>Title</MudTh>
