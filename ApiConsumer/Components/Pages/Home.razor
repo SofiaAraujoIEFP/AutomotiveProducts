@@ -1,7 +1,7 @@
 ﻿@page "/"
 @using ApiConsumer.Components.Shared
 @using Products.Shared.Models
-@* @inject NavigationManager NavigationManager /comentado pelo ruben *@ 
+@inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
 @inject IWebAPI WebAPI
@@ -22,37 +22,13 @@
     </RowTemplate>
 </MudTable>
 
-@*  @if (_productsModels.Any())
-{
-    <div class="d-flex flex-wrap">
-    @foreach (var productModel in _productsModels)
-    {
-        <MudCard class="w-25 m-2">
- 
-            <MudCarousel Class="mud-width-full" ShowArrows="@(productModel.ImageUrl.Count >1)" ShowBullets="@(productModel.ImageUrl.Count >1)" ItemsSource="@productModel?.ImageUrl" Style="height:200px"> 
-                <ItemTemplate>
-                    <MudImage Src="@context" Height="200" ObjectFit=ObjectFit.Cover></MudImage>
-                </ItemTemplate>
-            </MudCarousel>
-            <MudCardContent>
-                <MudText Typo="Typo.body2">@productModel.Title</MudText>
-                <MudText Typo="Typo.body2">@productModel.Description</MudText>
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick"() => "Navigate(productModel.Id)">Share</MudButton>
-                <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
-            </MudCardActions>
-        </MudCard>
-    }
-</div>
-} *@
 
 @code {
     private List<AutomotiveProducts.Entities.Products> _productsModels = new();
 
-    private void navigate(int id)
+    private void navigate(long id)
     {
-        // navigationmanager.navigateto($"/productdetail/{id}"); //comentado pelo ruben
+        NavigationManager.NavigateTo($"productN/{id}", true);
     }
 
     protected override async Task OnParametersSetAsync()
@@ -63,5 +39,5 @@
     }
 
     void UpdateProducts(long id) { Console.WriteLine($"Update Product: {id}"); }
- }
+}
  
