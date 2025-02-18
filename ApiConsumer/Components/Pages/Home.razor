@@ -1,13 +1,37 @@
 ﻿@page "/"
-@using ApiConsumer.Components.Shared
+@using IAutomotiveProductsApi
+@using IAutomotiveProductsApi.Models
 @using Products.Shared.Models
+@inject IWebAPI WebAPI
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-@inject IWebAPI WebAPI
+
 //Ter adicionado um botão em cima da tabela principal new product que direcione a uma nova página para que o cliente possa adicionar produtos
 
 <PageTitle>Home</PageTitle>
+@* <mudbutton color="color.primary" onclick="@(() => ne(context.id))">edit</mudbutton> //alterar *@
+<MudTable Items="ProductItems" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>Title</MudTh>
+        <MudTh>Description</MudTh>
+        <MudTh>CostPrice</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Description">@context.Description</MudTd>
+        <MudTd DataLabel="Add">
+            <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Details" Color="Color.Primary" OnClick="@(() => NavigationDetail(context.Id))">Detail</MudButton>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteProduct(context.Id))">Delete</MudButton>
+        </MudTd>
+
+
+    </RowTemplate>
+</MudTable>
+
+
+
+@* <PageTitle>Home</PageTitle>
 <MudButton Color="Color.Primary" OnClick="@(() => New(context.Id))">Edit</MudButton> //alterar
 <MudTable Items="_productsModels" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
@@ -20,24 +44,42 @@
         <MudTd DataLabel="Description">@context.Description</MudTd>
         <MudButton Color="Color.Primary" OnClick="@(() => UpdateProducts(context.Id))">Edit</MudButton>
     </RowTemplate>
-</MudTable>
+</MudTable> *@
 
 
-@code {
-    private List<AutomotiveProducts.Entities.Products> _productsModels = new();
+@* @code {
+    private list<automotiveproducts.entities.products> _productsmodels = new();
 
     private void navigate(long id)
     {
-        NavigationManager.NavigateTo($"productN/{id}", true);
+        navigationmanager.navigateto($"productn/{id}", true);
     }
+
+    protected override async task onparameterssetasync()
+    {
+        var response = await webapi.getproducts();
+
+        _productsmodels = response;
+    }
+
+    void updateproducts(long id) { console.writeline($"update product: {id}"); }
+} *@
+@code
+{
+    List<IAutomotiveProductsApi.Models.ProductModel> ProductItems { get; set; } = new();
 
     protected override async Task OnParametersSetAsync()
     {
-        var response = await WebAPI.GetProducts();
-
-        _productsModels = response;
+        ProductItems = await WebAPI.GetProducts();
     }
 
-    void UpdateProducts(long id) { Console.WriteLine($"Update Product: {id}"); }
-}
- 
+    private async void DeleteProduct(long id)
+    {
+        var response = await WebAPI.DeleteProduct(id);
+    }
+
+    private void NavigationDetail(long id)
+    {
+        NavigationManager.NavigateTo($"product/{id}", true);
+    }
+    }

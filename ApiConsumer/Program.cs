@@ -1,5 +1,5 @@
+using ApiConsumer;
 using ApiConsumer.Components;
-using ApiConsumer.Components.Shared;
 using MudBlazor.Services;
 using Refit;
 
