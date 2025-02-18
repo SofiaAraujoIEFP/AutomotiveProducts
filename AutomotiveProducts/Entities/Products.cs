@@ -14,6 +14,10 @@ namespace AutomotiveProducts.Entities
         public string Category { get; set; }
         public string Description { get; set; }
         public decimal CostPrice { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsCompleted { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
     }
 }

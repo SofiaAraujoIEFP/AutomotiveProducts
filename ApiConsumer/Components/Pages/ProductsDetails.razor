@@ -1,34 +1,29 @@
-﻿@page "/productN/{Id:int}"
+﻿@page "/product/{Id:int}"
 @using IAutomotiveProductsApi.Models
-@using ApiConsumer.Components.Shared
 @inject IWebAPI WebAPI
 @rendermode InteractiveServer
 
+<h3>TodoDetail</h3>
 
-<h3>ProductsDetails</h3>
-
-<EditForm FormName="UpdateTaskForm" Model="@Product" OnValidSubmit="SaveTask">
-    <InputText @bind-Value=Product.Title />
-    <InputText @bind-Value=Product.Description />
+<EditForm FormName="UpdateTaskForm" Model="@productModel" OnValidSubmit="SaveProduct">
+    <InputText @bind-Value=productModel.Title />
+    <InputText @bind-Value=productModel.Description />
     <button type="submit">Save</button>
 </EditForm>
 
 @code {
-
     [Parameter]
     public int Id { get; set; }
 
-    private Product Product { get; set; } = new();
+    private ProductModel productModel { get; set; } = new();
 
     protected override async Task OnParametersSetAsync()
-
     {
-        Product = await WebAPI.GetProduct(Id);
+        productModel = await WebAPI.GetProduct(Id);
     }
 
-    private async Task SaveTask()
-
+    private async void SaveProduct()
     {
-        var result = await WebAPI.SaveProducts(Id);
+        var result = await WebAPI.UpdateTodo(productModel);
     }
 }
