@@ -16,7 +16,10 @@ namespace AutomotiveProducts.Entities
         public decimal CostPrice { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsCompleted { get; set; }
-    
+        public decimal SalePrice { get; set; }
+        public string Supplier { get; set; }
+        public int SupplierRef { get; set; }
+        public long Quantity { get; set; }
 
     }
 }

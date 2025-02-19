@@ -16,6 +16,8 @@
 <h3>AddTask</h3>
 
 @code {
+    [Parameter]
+    public int Id { get; set; }
     private ProductModel productModel { get; set; } = new();
 
     private async void SaveProduct()
@@ -25,10 +27,9 @@
         newProduct.Title = productModel.Title;
         newProduct.Description = productModel.Description;
         newProduct.IsCompleted = false;
-        newProduct.CreatedAt = DateTime.Now;
-        newProduct.UpdatedAt = DateTime.Now;
+       
         newProduct.Id = 0;
-
+        
         try
         {
             // await WebApi.AddTodos(newTodo);

@@ -7,7 +7,13 @@
 
 <EditForm FormName="UpdateTaskForm" Model="@productModel" OnValidSubmit="SaveProduct">
     <InputText @bind-Value=productModel.Title />
+    <InputText @bind-Value=productModel.Category />
     <InputText @bind-Value=productModel.Description />
+    <InputNumber @bind-Value=productModel.CostPrice />
+    <InputNumber @bind-Value=productModel.SalePrice />
+    <InputText @bind-Value=productModel.Supplier />
+    <InputNumber @bind-Value=productModel.SupplierRef />
+    <InputNumber @bind-Value=productModel.Quantity />
     <button type="submit">Edit</button>
 </EditForm>
 
