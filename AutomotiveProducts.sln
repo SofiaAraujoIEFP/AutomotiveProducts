@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiConsumer", "ApiConsumer\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Products.Shared", "Products.Shared\Products.Shared.csproj", "{A9BAB684-97C4-401D-8A01-54C6B91CD59E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAutomotiveProductsApi", "IAutomotiveProductsApi\IAutomotiveProductsApi.csproj", "{2E879132-61FD-4A0A-BA5B-7BC3B022A297}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAutomotiveProductsApi", "IAutomotiveProductsApi\IAutomotiveProductsApi.csproj", "{2E879132-61FD-4A0A-BA5B-7BC3B022A297}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -99,16 +99,15 @@ namespace IAutomotiveProductsApi.Controllers
         [HttpPost("/addproducts")]
         public async Task<IActionResult> AddTask(ProductModel productModel)
         {
-            var todo = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(productModel.Id));
+            var product = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(productModel.Id));
 
-            if (todo is not null)
+            if (product is not null)
                 return BadRequest();
 
             var newProduct = new AutomotiveProducts.Entities.Products();
             newProduct.Title = productModel.Title;
             newProduct.Description = productModel.Description;
-            newProduct.CreatedAt = DateTime.Now;
-            newProduct.UpdatedAt = DateTime.Now;
+          
 
             _businessDbContext.Product.Add(newProduct);
 
@@ -149,7 +148,7 @@ namespace IAutomotiveProductsApi.Controllers
             todo.Title = productModel.Title;
             todo.Description = productModel.Description;
             todo.IsCompleted = productModel.IsCompleted;
-            todo.UpdatedAt = DateTime.Now;
+           
 
             var result = await _businessDbContext.SaveChangesAsync();
 
