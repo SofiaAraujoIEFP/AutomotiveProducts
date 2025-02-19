@@ -11,8 +11,10 @@ namespace IAutomotiveProductsApi.Models
         public decimal CostPrice { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsCompleted { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public decimal SalePrice { get; set; }
+        public string Supplier {  get; set; }
+        public int SupplierRef { get; set; }
+        public long Quantity { get; set; }
         //public List<string> ImageUrl { get; set; }
     }
 

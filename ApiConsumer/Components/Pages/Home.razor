@@ -15,11 +15,12 @@
     <HeaderContent>
         <MudTh>Title</MudTh>
         <MudTh>Description</MudTh>
-        <MudTh>CostPrice</MudTh>
+        <MudTh>Quantity</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Title">@context.Title</MudTd>
         <MudTd DataLabel="Description">@context.Description</MudTd>
+        <MudTd DataLabel="Quantity">@context.Quantity</MudTd>
         <MudTd DataLabel="Add">
             <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Details" Color="Color.Primary" OnClick="@(() => NavigationDetail(context.Id))">Detail</MudButton>
             <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteProduct(context.Id))">Delete</MudButton>

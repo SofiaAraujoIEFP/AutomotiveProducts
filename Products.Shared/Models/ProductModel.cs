@@ -17,6 +17,10 @@ namespace Products.Shared.Models
         public bool IsCompleted { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public decimal SalePrice { get; set; }
+        public string Supplier { get; set; }
+        public int SupplierRef { get; set; }
+        public long Quantity { get; set; }
         //public List<string> ImageUrl { get; set; }
     }
 

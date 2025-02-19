@@ -140,15 +140,18 @@ namespace IAutomotiveProductsApi.Controllers
         [HttpPut("/updateproduct")]
         public async Task<IActionResult> Updatetodo(ProductModel productModel)
         {
-            var todo = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(productModel.Id));
+            var product = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(productModel.Id));
 
-            if (todo is null)
+            if (product is null)
                 return BadRequest();
 
-            todo.Title = productModel.Title;
-            todo.Description = productModel.Description;
-            todo.IsCompleted = productModel.IsCompleted;
-           
+            product.Title = productModel.Title;
+            product.Description = productModel.Description;
+            product.Category = productModel.Category;
+            product.CostPrice = productModel.CostPrice;
+            product.Supplier = productModel.Supplier;
+            product.SupplierRef = productModel.SupplierRef;
+            product.Quantity = productModel.Quantity;
 
             var result = await _businessDbContext.SaveChangesAsync();
 
