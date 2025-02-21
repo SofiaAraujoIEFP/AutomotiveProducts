@@ -97,16 +97,16 @@ namespace IAutomotiveProductsApi.Controllers
         }
 
         [HttpPost("/addproducts")]
-        public async Task<IActionResult> AddTask(ProductModel productModel)
+        public async Task<IActionResult> AddTask(AutomotiveProducts.Entities.Products product)
         {
-            var product = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(productModel.Id));
+            var oldproduct = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(product.Id));
 
             if (product is not null)
                 return BadRequest();
 
             var newProduct = new AutomotiveProducts.Entities.Products();
-            newProduct.Title = productModel.Title;
-            newProduct.Description = productModel.Description;
+            newProduct.Title = product.Title;
+            newProduct.Description = product.Description;
           
 
             _businessDbContext.Product.Add(newProduct);
@@ -122,12 +122,12 @@ namespace IAutomotiveProductsApi.Controllers
         [HttpDelete("/deleteproduct")]
         public async Task<ActionResult> DeleteProduct(long Id)
         {
-            var todo = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(Id));
+            var product = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(Id));
 
-            if (todo is null)
+            if (product is null)
                 return BadRequest();
 
-            todo.IsDeleted = true;
+            product.IsDeleted = true;
 
             var result = await _businessDbContext.SaveChangesAsync();
 
@@ -138,20 +138,20 @@ namespace IAutomotiveProductsApi.Controllers
         }
 
         [HttpPut("/updateproduct")]
-        public async Task<IActionResult> Updatetodo(ProductModel productModel)
+        public async Task<IActionResult> Updateproduct(AutomotiveProducts.Entities.Products product)
         {
-            var product = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(productModel.Id));
+            var newProduct = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(product.Id));
 
-            if (product is null)
+                if (newProduct is null)
                 return BadRequest();
 
-            product.Title = productModel.Title;
-            product.Description = productModel.Description;
-            product.Category = productModel.Category;
-            product.CostPrice = productModel.CostPrice;
-            product.Supplier = productModel.Supplier;
-            product.SupplierRef = productModel.SupplierRef;
-            product.Quantity = productModel.Quantity;
+            newProduct.Title = product.Title;
+            newProduct.Description = product.Description;
+            newProduct.Category = product.Category;
+            newProduct.CostPrice = product.CostPrice;
+            newProduct.Supplier = product.Supplier;
+            newProduct.SupplierRef = product.SupplierRef;
+            newProduct.Quantity = product.Quantity;
 
             var result = await _businessDbContext.SaveChangesAsync();
 
