@@ -25,7 +25,7 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        product = await WebAPI.GetProduct();
+        product = await WebAPI.GetProduct(Id);
     }
 
     private async void SaveProduct()

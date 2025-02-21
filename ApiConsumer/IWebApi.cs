@@ -6,10 +6,10 @@ namespace ApiConsumer
     internal interface IWebAPI
     {
         [Get("/getproducts")]
-        Task<List<ProductModel>> GetProducts();
+        Task<List<AutomotiveProducts.Entities.Products>> GetProducts();
 
         [Get("/getproduct")]
-        Task<ProductModel> GetProduct(int id);
+        Task<AutomotiveProducts.Entities.Products> GetProduct(int id);
 
         [Post("/addproducts")]
         Task<HttpResponseMessage> AddProducts([FromBody] AutomotiveProducts.Entities.Products product);
