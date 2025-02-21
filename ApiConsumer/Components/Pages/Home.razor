@@ -10,7 +10,7 @@
 
 <PageTitle>Home</PageTitle>
 @* <mudbutton color="color.primary" onclick="@(() => ne(context.id))">edit</mudbutton> //alterar *@
-<MudTable Items="product" Hover="true" Breakpoint="Breakpoint.Sm">
+<MudTable Items="ProductItems" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
         <MudTh>Title</MudTh>
         <MudTh>Description</MudTh>
@@ -63,31 +63,25 @@
 
     void updateproducts(long id) { console.writeline($"update product: {id}"); }
 } *@
+@code
+{
+    List<IAutomotiveProductsApi.Models.ProductModel> ProductItems { get; set; } = new();
 
-    @code
+    protected override async Task OnParametersSetAsync()
     {
-        List<AutomotiveProducts.Entities.Products> product { get; set; } = new();
+        ProductItems = await WebAPI.GetProducts();
+    }
 
-        protected override async Task OnParametersSetAsync()
-        {
-            product = await WebAPI.GetProducts();
-        }
+    private async void DeleteProduct(long id)
+    {
+        var response = await WebAPI.DeleteProduct(id);
+    }
 
-        private async void DeleteProduct(long id)
-        {
-            var response = await WebAPI.DeleteProduct(id);
-        }
+    private void NavigationDetail(long id)
+    {
+        NavigationManager.NavigateTo($"product/{id}", true);
+    }
 
-        private void NavigationDetail(long id)
-        {
-            NavigationManager.NavigateTo($"product/{id}", true);
-        }
-
-        private void Updateproducts()
-        {
-            NavigationManager.NavigateTo($"addproducts/", true);
-        }
-    
     private void AddProducts(long id)
     {
         NavigationManager.NavigateTo($"addproducts/", true);
