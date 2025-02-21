@@ -10,7 +10,7 @@
 
 <PageTitle>Home</PageTitle>
 @* <mudbutton color="color.primary" onclick="@(() => ne(context.id))">edit</mudbutton> //alterar *@
-<MudTable Items="ProductItems" Hover="true" Breakpoint="Breakpoint.Sm">
+<MudTable Items="Product" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
         <MudTh>Title</MudTh>
         <MudTh>Description</MudTh>
@@ -65,11 +65,11 @@
 } *@
 @code
 {
-    List<IAutomotiveProductsApi.Models.ProductModel> ProductItems { get; set; } = new();
+    List<AutomotiveProducts.Entities.Products> Product { get; set; } = new();
 
     protected override async Task OnParametersSetAsync()
     {
-        ProductItems = await WebAPI.GetProducts();
+        Product = await WebAPI.GetProducts();
     }
 
     private async void DeleteProduct(long id)
