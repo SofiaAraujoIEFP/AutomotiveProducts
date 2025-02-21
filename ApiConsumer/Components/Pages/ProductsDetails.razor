@@ -1,19 +1,19 @@
 ﻿@page "/product/{Id:int}"
-@using IAutomotiveProductsApi.Models
+@using AutomotiveProducts.Entities
 @inject IWebAPI WebAPI
 @rendermode InteractiveServer
 
 <h3>Product Details</h3>
 
-<EditForm FormName="UpdateTaskForm" Model="@productModel" OnValidSubmit="SaveProduct">
-    <InputText @bind-Value=productModel.Title />
-    <InputText @bind-Value=productModel.Category />
-    <InputText @bind-Value=productModel.Description />
-    <InputNumber @bind-Value=productModel.CostPrice />
-    <InputNumber @bind-Value=productModel.SalePrice />
-    <InputText @bind-Value=productModel.Supplier />
-    <InputNumber @bind-Value=productModel.SupplierRef />
-    <InputNumber @bind-Value=productModel.Quantity />
+<EditForm FormName="UpdateTaskForm" Model="@product" OnValidSubmit="SaveProduct">
+    <InputText @bind-Value=product.Title />
+    <InputText @bind-Value=product.Category />
+    <InputText @bind-Value=product.Description />
+    <InputNumber @bind-Value=product.CostPrice />
+    <InputNumber @bind-Value=product.SalePrice />
+    <InputText @bind-Value=product.Supplier />
+    <InputNumber @bind-Value=product.SupplierRef />
+    <InputNumber @bind-Value=product.Quantity />
     <button type="submit">Edit</button>
 </EditForm>
 
@@ -21,15 +21,16 @@
     [Parameter]
     public int Id { get; set; }
 
-    private ProductModel productModel { get; set; } = new();
+    private Products product { get; set; } = new();
 
     protected override async Task OnParametersSetAsync()
     {
-        productModel = await WebAPI.GetProduct(Id);
+        product = await WebAPI.GetProduct();
     }
 
     private async void SaveProduct()
     {
-        var result = await WebAPI.UpdateTodo(productModel);
+        var result = await WebAPI.Updateproduct(product);
     }
 }
+

@@ -12,13 +12,13 @@ namespace ApiConsumer
         Task<ProductModel> GetProduct(int id);
 
         [Post("/addproducts")]
-        Task<HttpResponseMessage> AddProducts([FromBody] ProductModel productModel);
+        Task<HttpResponseMessage> AddProducts([FromBody] AutomotiveProducts.Entities.Products product);
 
         [Delete("/deleteproduct")]
         Task<HttpResponseMessage> DeleteProduct(long id);
 
         [Put("/updateproduct")]
-        Task<HttpResponseMessage> UpdateTodo([FromBody] ProductModel productModel);
+        Task<HttpResponseMessage> Updateproduct([FromBody] AutomotiveProducts.Entities.Products product);
     }
 }
 
