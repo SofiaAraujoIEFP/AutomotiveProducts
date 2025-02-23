@@ -1,9 +1,6 @@
 ﻿using AutomotiveProducts.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using AutomotiveProducts.Entities;
 using Microsoft.EntityFrameworkCore;
-using Products.Shared.Models;
 
 namespace IAutomotiveProductsApi.Controllers
 {
@@ -101,13 +98,20 @@ namespace IAutomotiveProductsApi.Controllers
         {
             var oldproduct = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(product.Id));
 
-            if (product is not null)
+            if (product is null)
                 return BadRequest();
 
             var newProduct = new AutomotiveProducts.Entities.Products();
             newProduct.Title = product.Title;
             newProduct.Description = product.Description;
-          
+            newProduct.CostPrice = product.CostPrice;
+            newProduct.Category = product.Category;
+            newProduct.Supplier = product.Supplier;
+            newProduct.SupplierRef = product.SupplierRef;
+            newProduct.Quantity = product.Quantity;
+            newProduct.SalePrice = product.SalePrice;
+            newProduct.IsDeleted = product.IsDeleted;
+            newProduct.IsCompleted = product.IsCompleted;
 
             _businessDbContext.Product.Add(newProduct);
 
@@ -142,7 +146,7 @@ namespace IAutomotiveProductsApi.Controllers
         {
             var newProduct = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(product.Id));
 
-                if (newProduct is null)
+            if (newProduct is null)
                 return BadRequest();
 
             newProduct.Title = product.Title;
