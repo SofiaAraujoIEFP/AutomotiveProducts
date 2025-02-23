@@ -5,27 +5,38 @@
 
 <h3>Product Details</h3>
 
-<EditForm FormName="UpdateTaskForm" Model="@product" OnValidSubmit="EditProduct">
-    <label>Title</label>
-    <InputText @bind-Value=product.Title />
-    <label>Category</label>
-    <InputText @bind-Value=product.Category />
-    <label>Description</label>
-    <InputText @bind-Value=product.Description />
-    <label>CostPrice</label>
-    <InputNumber @bind-Value=product.CostPrice />
-    <label>SalePrice</label>
-    <InputNumber @bind-Value=product.SalePrice />
-    <label>Supplier</label>
-    <InputText @bind-Value=product.Supplier />
-    <label>SupplierRef</label>
-    <InputNumber @bind-Value=product.SupplierRef />
-    <label>Quantity</label>
-    <InputNumber @bind-Value=product.Quantity />
-    <button type="submit">Edit</button>
-</EditForm>
+<EditForm Model="@product" OnValidSubmit="EditProduct" FormName="productForm">
+    <div class="form-group">
+        <label>Title</label>
+        <InputText @bind-Value="product.Title" class="form-control" />
 
-@code {
+        <label>Category</label>
+        <InputText @bind-Value="product.Category" class="form-control" />
+
+        <label>Description</label>
+        <InputText @bind-Value="product.Description" class="form-control" />
+
+        <label>Cost Price</label>
+        <InputNumber @bind-Value="product.CostPrice" class="form-control" />
+
+        <label>Sale Price</label>
+        <InputNumber @bind-Value="product.SalePrice" class="form-control" />
+
+        <label>Supplier</label>
+        <InputText @bind-Value="product.Supplier" class="form-control" />
+
+        <label>Supplier Reference</label>
+        <InputNumber @bind-Value="product.SupplierRef" class="form-control" />
+
+        <label>Quantity</label>
+        <InputNumber @bind-Value="product.Quantity" class="form-control" />
+
+        <!-- Blue Save button -->
+        <button type="submit" class="btn btn-primary" style="background-color: #007bff;">Save</button>
+    </div>
+
+</EditForm>
+ @code {
     [Parameter]
     public int Id { get; set; }
 
