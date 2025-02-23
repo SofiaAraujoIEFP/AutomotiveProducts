@@ -5,14 +5,22 @@
 
 <h3>Product Details</h3>
 
-<EditForm FormName="UpdateTaskForm" Model="@product" OnValidSubmit="SaveProduct">
+<EditForm FormName="UpdateTaskForm" Model="@product" OnValidSubmit="EditProduct">
+    <label>Title</label>
     <InputText @bind-Value=product.Title />
+    <label>Category</label>
     <InputText @bind-Value=product.Category />
+    <label>Description</label>
     <InputText @bind-Value=product.Description />
+    <label>CostPrice</label>
     <InputNumber @bind-Value=product.CostPrice />
+    <label>SalePrice</label>
     <InputNumber @bind-Value=product.SalePrice />
+    <label>Supplier</label>
     <InputText @bind-Value=product.Supplier />
+    <label>SupplierRef</label>
     <InputNumber @bind-Value=product.SupplierRef />
+    <label>Quantity</label>
     <InputNumber @bind-Value=product.Quantity />
     <button type="submit">Edit</button>
 </EditForm>
@@ -28,7 +36,7 @@
         product = await WebAPI.GetProduct(Id);
     }
 
-    private async void SaveProduct()
+    private async void EditProduct()
     {
         var result = await WebAPI.Updateproduct(product);
     }

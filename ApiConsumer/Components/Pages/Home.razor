@@ -1,16 +1,24 @@
-﻿@page "/"
+﻿@* @page "/"
 @using IAutomotiveProductsApi
 @using IAutomotiveProductsApi.Models
 @using Products.Shared.Models
 @inject IWebAPI WebAPI
 @inject NavigationManager NavigationManager
+@rendermode InteractiveServer *@
+
+@page "/"
+@using AutomotiveProducts.Entities
+@using ApiConsumer
+@inject IWebAPI WebAPI
+@inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-//Ter adicionado um botão em cima da tabela principal new product que direcione a uma nova página para que o cliente possa adicionar produtos
+@* Ter adicionado um botão em cima da tabela principal new product que direcione a uma nova página para que o cliente possa adicionar produtos *@
 
 <PageTitle>Home</PageTitle>
-@* <mudbutton color="color.primary" onclick="@(() => ne(context.id))">edit</mudbutton> //alterar *@
-<MudTable Items="Product" Hover="true" Breakpoint="Breakpoint.Sm">
+<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" OnClick="@(AddProducts)">Add Product</MudButton>
+
+<MudTable Items="product" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
         <MudTh>Title</MudTh>
         <MudTh>Description</MudTh>
@@ -23,7 +31,6 @@
         <MudTd DataLabel="Add">
             <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Details" Color="Color.Primary" OnClick="@(() => NavigationDetail(context.Id))">Detail</MudButton>
             <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteProduct(context.Id))">Delete</MudButton>
-            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => AddProducts(context.Id))">Add</MudButton>
         </MudTd>
     </RowTemplate>
 </MudTable>
@@ -65,11 +72,11 @@
 } *@
 @code
 {
-    List<AutomotiveProducts.Entities.Products> Product { get; set; } = new();
+    List<AutomotiveProducts.Entities.Products> product { get; set; } = new();
 
     protected override async Task OnParametersSetAsync()
     {
-        Product = await WebAPI.GetProducts();
+        product = await WebAPI.GetProducts();
     }
 
     private async void DeleteProduct(long id)
@@ -82,8 +89,8 @@
         NavigationManager.NavigateTo($"product/{id}", true);
     }
 
-    private void AddProducts(long id)
+    private async void AddProducts()
     {
-        NavigationManager.NavigateTo($"addproducts/", true);
+        NavigationManager.NavigateTo("addproducts/", true);
     }
 }
