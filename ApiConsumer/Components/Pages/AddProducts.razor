@@ -10,7 +10,7 @@
 
 <h3>Add Products</h3>
 
-<EditForm FormName="ProductEditForm" Model="_product" OnValidSubmit="EditProduct">
+<EditForm FormName="ProductEditForm" Model="_product">
     <div class="row">
         <label>Title</label>
         <InputText @bind-Value="_product.Title" />
@@ -22,10 +22,10 @@
         <InputNumber @bind-Value="_product.Quantity" />
 
         <MudButton Variant="Variant.Filled"
-                   Color="Color.Primary"
-                   OnClick="@(() => EditProduct())"
-                   type="submit"
-                   EndIcon="@Icons.Material.Filled.Save">
+        Color="Color.Primary"
+        OnClick="@(() => AddProduct())"
+        type="submit"
+        EndIcon="@Icons.Material.Filled.Save">
         </MudButton>
     </div>
 </EditForm>
@@ -42,9 +42,9 @@
         newProduct.Title = productModel.Title;
         newProduct.Description = productModel.Description;
         newProduct.IsCompleted = false;
-       
+
         newProduct.Id = 0;
-        
+
         try
         {
             // await WebApi.AddTodos(newTodo);
@@ -71,7 +71,16 @@
     // Se o Id não for nulo significa que nós estamos a procurar um Id que já existe
     public int? Id { get; set; }
 
-    private AutomotiveProducts.Entities.Products _product = new();
+    private AutomotiveProducts.Entities.Products _product = new()
+    {
+        Category = "Test",
+        CostPrice = 0,
+        IsCompleted = false,
+        IsDeleted = false,
+        SalePrice = 0,
+        Supplier = "Test",
+        SupplierRef = 1
+    };
 
     private async void EditProduct()
     {
@@ -88,11 +97,8 @@
         }
     }
 
-    private async void SaveProduct()
+    private async void AddProduct()
     {
-        if (Id is not null)
-        {
-            var product = await WebAPI.SaveProduct(_product);
-        }
+        var product = await WebAPI.AddProducts(_product);
     }
 }

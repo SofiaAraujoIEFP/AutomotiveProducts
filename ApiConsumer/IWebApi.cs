@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Refit;
-using AutomotiveProducts.Entities;
 //using IAutomotiveProductsApi.Models;
 namespace ApiConsumer
 {
@@ -13,14 +12,14 @@ namespace ApiConsumer
         Task<AutomotiveProducts.Entities.Products> GetProduct(int id);
 
         [Post("/addproducts")]
-        Task<HttpResponseMessage> AddProducts([FromBody] AutomotiveProducts.Entities.Products product);
+        Task<HttpResponseMessage> AddProducts(AutomotiveProducts.Entities.Products product);
 
         [Delete("/deleteproduct")]
         Task<HttpResponseMessage> DeleteProduct(long id);
 
         [Put("/updateproduct")]
         Task<HttpResponseMessage> Updateproduct([FromBody] AutomotiveProducts.Entities.Products product);
-        
+
         [Post("/saveproduct")]
         Task<HttpResponseMessage> SaveProduct([FromBody] AutomotiveProducts.Entities.Products product);
     }
