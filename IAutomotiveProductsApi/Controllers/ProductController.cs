@@ -97,7 +97,7 @@ namespace IAutomotiveProductsApi.Controllers
         }
 
         [HttpPost("/addproducts")]
-        public async Task<IActionResult> AddTask(AutomotiveProducts.Entities.Products product)
+        public async Task<IActionResult> AddProducts(AutomotiveProducts.Entities.Products product)
         {
             var oldproduct = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(product.Id));
 
@@ -145,6 +145,30 @@ namespace IAutomotiveProductsApi.Controllers
                 if (newProduct is null)
                 return BadRequest();
 
+            newProduct.Title = product.Title;
+            newProduct.Description = product.Description;
+            newProduct.Category = product.Category;
+            newProduct.CostPrice = product.CostPrice;
+            newProduct.Supplier = product.Supplier;
+            newProduct.SupplierRef = product.SupplierRef;
+            newProduct.Quantity = product.Quantity;
+
+            var result = await _businessDbContext.SaveChangesAsync();
+
+            if (result.Equals(1))
+                return Ok();
+
+            return BadRequest();
+        }
+
+        [HttpPut("/saveproduct")]
+        public async Task<IActionResult> SaveProduct(AutomotiveProducts.Entities.Products product)
+        {
+
+            if (product is null)
+                return BadRequest();
+
+            var newProduct = new AutomotiveProducts.Entities.Products();
             newProduct.Title = product.Title;
             newProduct.Description = product.Description;
             newProduct.Category = product.Category;

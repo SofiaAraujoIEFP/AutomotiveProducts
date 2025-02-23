@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Refit;
-using IAutomotiveProductsApi.Models;
+using AutomotiveProducts.Entities;
+//using IAutomotiveProductsApi.Models;
 namespace ApiConsumer
 {
     internal interface IWebAPI
@@ -19,6 +20,9 @@ namespace ApiConsumer
 
         [Put("/updateproduct")]
         Task<HttpResponseMessage> Updateproduct([FromBody] AutomotiveProducts.Entities.Products product);
+        
+        [Post("/saveproduct")]
+        Task<HttpResponseMessage> SaveProduct([FromBody] AutomotiveProducts.Entities.Products product);
     }
 }
 

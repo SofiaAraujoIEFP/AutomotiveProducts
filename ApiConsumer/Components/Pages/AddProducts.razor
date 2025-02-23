@@ -1,13 +1,16 @@
-﻿@page "/addproducts/{Id:int}"
+﻿@page "/addproducts"
+@using AutomotiveProducts.Entities;
+@using Refit;
 @inject IWebAPI WebAPI
 @rendermode InteractiveServer
-@using AutomotiveProducts.Entities;
 @inject HttpClient Http
+@inject NavigationManager NavigationManager
+
 
 
 <h3>Add Products</h3>
 
-<EditForm FormName="ProductEditForm" Model="_product" OnValidSubmit="SaveProduct">
+<EditForm FormName="ProductEditForm" Model="_product" OnValidSubmit="EditProduct">
     <div class="row">
         <label>Title</label>
         <InputText @bind-Value="_product.Title" />
@@ -15,14 +18,17 @@
         <label>Description</label>
         <InputText @bind-Value="_product.Description" />
 
-        <label>CostPrice</label>
-        <InputNumber @bind-Value="_product.CostPrice" />
+        <label>Quantity</label>
+        <InputNumber @bind-Value="_product.Quantity" />
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   OnClick="@(() => EditProduct())"
+                   type="submit"
+                   EndIcon="@Icons.Material.Filled.Save">
+        </MudButton>
     </div>
 </EditForm>
-
-<h3>AddTask</h3>
 
 @* @code {
     [Parameter]
@@ -67,7 +73,7 @@
 
     private AutomotiveProducts.Entities.Products _product = new();
 
-    private async void SaveProduct()
+    private async void EditProduct()
     {
         var product = await WebAPI.Updateproduct(_product);
 
@@ -79,6 +85,14 @@
         if (Id is not null)
         {
             var product = await WebAPI.GetProduct(Id.Value);
+        }
+    }
+
+    private async void SaveProduct()
+    {
+        if (Id is not null)
+        {
+            var product = await WebAPI.SaveProduct(_product);
         }
     }
 }
