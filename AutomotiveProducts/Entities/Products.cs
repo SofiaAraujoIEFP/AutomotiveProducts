@@ -19,7 +19,7 @@ namespace AutomotiveProducts.Entities
         public decimal SalePrice { get; set; }
         public string Supplier { get; set; }
         public int SupplierRef { get; set; }
+        public string? SupplierRefType { get; set; }
         public long Quantity { get; set; }
-
     }
 }

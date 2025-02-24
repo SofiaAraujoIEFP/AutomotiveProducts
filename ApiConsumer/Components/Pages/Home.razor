@@ -35,41 +35,6 @@
     </RowTemplate>
 </MudTable>
 
-
-
-@* <PageTitle>Home</PageTitle>
-<MudButton Color="Color.Primary" OnClick="@(() => New(context.Id))">Edit</MudButton> //alterar
-<MudTable Items="_productsModels" Hover="true" Breakpoint="Breakpoint.Sm">
-    <HeaderContent>
-        <MudTh>Title</MudTh>
-        <MudTh>Description</MudTh>
-        <MudTh>CostPrice</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Title">@context.Title</MudTd>
-        <MudTd DataLabel="Description">@context.Description</MudTd>
-        <MudButton Color="Color.Primary" OnClick="@(() => UpdateProducts(context.Id))">Edit</MudButton>
-    </RowTemplate>
-</MudTable> *@
-
-
-@* @code {
-    private list<automotiveproducts.entities.products> _productsmodels = new();
-
-    private void navigate(long id)
-    {
-        navigationmanager.navigateto($"productn/{id}", true);
-    }
-
-    protected override async task onparameterssetasync()
-    {
-        var response = await webapi.getproducts();
-
-        _productsmodels = response;
-    }
-
-    void updateproducts(long id) { console.writeline($"update product: {id}"); }
-} *@
 @code
 {
     List<AutomotiveProducts.Entities.Products> product { get; set; } = new();

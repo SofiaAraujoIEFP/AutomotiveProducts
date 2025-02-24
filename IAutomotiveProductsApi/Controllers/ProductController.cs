@@ -147,7 +147,11 @@ namespace IAutomotiveProductsApi.Controllers
             var newProduct = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(product.Id));
 
             if (newProduct is null)
-                return BadRequest();
+            {
+                await _businessDbContext.Product.AddAsync(product);
+                await _businessDbContext.SaveChangesAsync();
+                return Ok();
+            }
 
             newProduct.Title = product.Title;
             newProduct.Description = product.Description;
