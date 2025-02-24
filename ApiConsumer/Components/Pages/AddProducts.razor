@@ -6,8 +6,6 @@
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 
-
-
 <h3>Add Products</h3>
 
 <EditForm FormName="ProductEditForm" Model="_product">
@@ -15,8 +13,23 @@
         <label>Title</label>
         <InputText @bind-Value="_product.Title" />
 
+        <label>Category</label>
+        <InputText @bind-Value="_product.Category" />
+
         <label>Description</label>
         <InputText @bind-Value="_product.Description" />
+
+        <label>CostPrice</label>
+        <InputNumber @bind-Value="_product.CostPrice" />
+
+        <label>SalePrice</label>
+        <InputNumber @bind-Value="_product.SalePrice" />
+
+        <label>Supplier</label>
+        <InputText @bind-Value="_product.Supplier" />
+
+        <label>SupplierRef</label>
+        <InputNumber @bind-Value="_product.SupplierRef" />
 
         <label>Quantity</label>
         <InputNumber @bind-Value="_product.Quantity" />
@@ -29,6 +42,7 @@
         </MudButton>
     </div>
 </EditForm>
+
 
 @* @code {
     [Parameter]
@@ -73,13 +87,8 @@
 
     private AutomotiveProducts.Entities.Products _product = new()
     {
-        Category = "Test",
-        CostPrice = 0,
         IsCompleted = false,
         IsDeleted = false,
-        SalePrice = 0,
-        Supplier = "Test",
-        SupplierRef = 1
     };
 
     private async void EditProduct()
