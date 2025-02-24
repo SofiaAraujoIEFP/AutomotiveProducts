@@ -1,4 +1,5 @@
 ﻿@page "/product/{Id:int}"
+@page "/product"
 @using AutomotiveProducts.Entities
 @inject IWebAPI WebAPI
 @rendermode InteractiveServer
@@ -28,6 +29,9 @@
         <label>Supplier Reference</label>
         <InputNumber @bind-Value="product.SupplierRef" class="form-control" />
 
+        <label>Supplier Reference Type</label>
+        <InputText @bind-Value="product.SupplierRefType" class="form-control" />
+
         <label>Quantity</label>
         <InputNumber @bind-Value="product.Quantity" class="form-control" />
 
@@ -38,13 +42,14 @@
 </EditForm>
  @code {
     [Parameter]
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     private Products product { get; set; } = new();
 
     protected override async Task OnParametersSetAsync()
     {
-        product = await WebAPI.GetProduct(Id);
+        if (Id is not null)
+        product = await WebAPI.GetProduct(Id.Value);
     }
 
     private async void EditProduct()

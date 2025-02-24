@@ -19,17 +19,20 @@
         <label>Description</label>
         <InputText @bind-Value="_product.Description" />
 
-        <label>CostPrice</label>
+        <label>Cost Price</label>
         <InputNumber @bind-Value="_product.CostPrice" />
 
-        <label>SalePrice</label>
+        <label>Sale Price</label>
         <InputNumber @bind-Value="_product.SalePrice" />
 
         <label>Supplier</label>
         <InputText @bind-Value="_product.Supplier" />
 
-        <label>SupplierRef</label>
+        <label>Supplier Reference</label>
         <InputNumber @bind-Value="_product.SupplierRef" />
+
+        <label>Supplier Reference Type</label>
+        <InputText @bind-Value="_product.SupplierRefType" />
 
         <label>Quantity</label>
         <InputNumber @bind-Value="_product.Quantity" />
@@ -42,43 +45,6 @@
         </MudButton>
     </div>
 </EditForm>
-
-
-@* @code {
-    [Parameter]
-    public int Id { get; set; }
-    private ProductModel productModel { get; set; } = new();
-
-    private async void SaveProduct()
-    {
-        var newProduct = new ProductModel();
-
-        newProduct.Title = productModel.Title;
-        newProduct.Description = productModel.Description;
-        newProduct.IsCompleted = false;
-
-        newProduct.Id = 0;
-
-        try
-        {
-            // await WebApi.AddTodos(newTodo);
-            var stringJson = new StringContent(
-                System.Text.Json.JsonSerializer.Serialize(newProduct),
-                System.Text.Encoding.UTF8,
-                "application/json"
-            );
-
-            var response = await Http.PostAsync("https://localhost:7224/addproducts", stringJson);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-    }
-}
-
- *@
 
 @code {
     [Parameter]
