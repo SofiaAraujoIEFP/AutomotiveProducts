@@ -11,6 +11,7 @@ namespace AutomotiveProducts.Data
     public class BusinessDbContext : DbContext
     {
         public DbSet<Products> Product { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
         public DbSet<Images> Images { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
