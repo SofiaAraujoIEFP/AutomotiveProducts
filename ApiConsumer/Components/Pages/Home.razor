@@ -31,6 +31,7 @@
         <MudTd DataLabel="Add">
             <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Details" Color="Color.Primary" OnClick="@(() => NavigationDetail(context.Id))">Detail</MudButton>
             <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteProduct(context.Id))">Delete</MudButton>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => NavigationStock(context.Id))">Stock</MudButton>
         </MudTd>
     </RowTemplate>
 </MudTable>
@@ -52,6 +53,11 @@
     private void NavigationDetail(long id)
     {
         NavigationManager.NavigateTo($"product/{id}", true);
+    }
+
+    private void NavigationStock(long id)
+    {
+        NavigationManager.NavigateTo($"stockmovements/{id}", true);
     }
 
     private async void AddProducts()

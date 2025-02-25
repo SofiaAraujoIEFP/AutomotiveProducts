@@ -10,9 +10,26 @@ namespace AutomotiveProducts.Entities
     //Verificar se esta abordagem vai ser utilizada na primeira versão do carrossel
     public class Stock : BaseEntity
     {
-        public long PoductId { get; set; }
+        public long ProductId { get; set; }
         public Products Products { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsCompleted { get; set; }
+        public long QuantityReceived { get; set; }
+        public long QuantitySent { get; set; }
+
+        public void Decrease(long sentQuantity)
+        {
+            QuantitySent += sentQuantity;
+            Console.WriteLine($"Quantity after decrease: {QuantityReceived - QuantitySent}");
+        }
+
+        public void Increase(long receivedQuantity)
+        {
+            QuantityReceived += receivedQuantity;
+            Console.WriteLine($"Quantity after increase: {QuantityReceived - QuantitySent}");
+        }
     }
 }
+
+
+

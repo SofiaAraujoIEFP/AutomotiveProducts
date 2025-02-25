@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,3 +24,4 @@ namespace AutomotiveProducts.Entities
         public long Quantity { get; set; }
     }
 }
+
