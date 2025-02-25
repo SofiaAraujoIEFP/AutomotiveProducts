@@ -1,0 +1,60 @@
+﻿@page "/stocktable/{Id:int}"
+@page "/stocktable"
+@using AutomotiveProducts.Entities
+@inject IWebAPI WebAPI
+@rendermode InteractiveServer
+
+<h3>Stock Table </h3>
+
+<EditForm Model="@product" OnValidSubmit="EditProduct" FormName="productForm">
+    <div class="form-group">
+        <label>Title</label>
+        <InputText @bind-Value="product.Title" class="form-control" />
+
+        <label>Category</label>
+        <InputText @bind-Value="product.Category" class="form-control" />
+
+        <label>Description</label>
+        <InputText @bind-Value="product.Description" class="form-control" />
+
+        <label>Cost Price</label>
+        <InputNumber @bind-Value="product.CostPrice" class="form-control" />
+
+        <label>Sale Price</label>
+        <InputNumber @bind-Value="product.SalePrice" class="form-control" />
+
+        <label>Supplier</label>
+        <InputText @bind-Value="product.Supplier" class="form-control" />
+
+        <label>Supplier Reference</label>
+        <InputNumber @bind-Value="product.SupplierRef" class="form-control" />
+
+        <label>Supplier Reference Type</label>
+        <InputText @bind-Value="product.SupplierRefType" class="form-control" />
+
+        <label>Quantity</label>
+        <InputNumber @bind-Value="product.Quantity" class="form-control" />
+
+        <!-- Blue Save button -->
+        <button type="submit" class="btn btn-primary" style="background-color: #007bff;">Save</button>
+    </div>
+
+</EditForm>
+ @code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    private Products product { get; set; } = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id is not null)
+        product = await WebAPI.GetProduct(Id.Value);
+    }
+
+    private async void EditProduct()
+    {
+        var result = await WebAPI.Updateproduct(product);
+    }
+}
+
