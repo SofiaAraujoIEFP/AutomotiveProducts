@@ -11,6 +11,7 @@ namespace AutomotiveProducts.Entities
     //Verificar se esta abordagem vai ser utilizada na primeira versão do carrossel
     public class Products : BaseEntity
     {
+        public ICollection<Stock> Stocks { get; set; }
         public string Title { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }

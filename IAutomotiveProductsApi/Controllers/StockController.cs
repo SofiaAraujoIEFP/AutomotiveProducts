@@ -28,8 +28,8 @@ namespace IAutomotiveProductsApi.Controllers
                 return Ok(taskTable);
         }
 
-        [HttpGet("/getstock/{Id}")]
-        public async Task<IActionResult> GetStock(int Id)
+        [HttpGet("/getstocks/{Id}")]
+        public async Task<IActionResult> GetStocks(int Id)
         {
             var taskTable = await _businessDbContext.Stocks.FirstOrDefaultAsync(t => t.IsDeleted == false && t.Id.Equals(Id));
 
@@ -63,33 +63,59 @@ namespace IAutomotiveProductsApi.Controllers
             return BadRequest();
         }
 
-        [HttpPut("/savestock")]
+        //[HttpPut("/savestock")]
+        //public async Task<IActionResult> SaveStock(AutomotiveProducts.Entities.Stock stocks)
+        //{
+
+        //    if (stocks is null)
+        //        return BadRequest();
+
+        //    var availableStock = new AutomotiveProducts.Entities.Stock();
+        //    availableStock.Products.Quantity = stocks.Products.Quantity;
+
+        //    var result = await _businessDbContext.SaveChangesAsync();
+
+        //    if (result.Equals(1))
+        //        return Ok();
+
+        //    return BadRequest();
+        //}
+
+        [HttpPut("savestock")]
         public async Task<IActionResult> SaveStock(AutomotiveProducts.Entities.Stock stocks)
         {
+            if (stocks == null || stocks.Products == null)
+                return BadRequest("Invalid stock data.");
 
-            if (stocks is null)
-                return BadRequest();
+            var availableStock = await _businessDbContext.Stocks
+                                                          .Include(s => s.Products)
+                                                          .FirstOrDefaultAsync(s => s.ProductId == stocks.ProductId && !s.IsDeleted);
 
-            var availableStock = new AutomotiveProducts.Entities.Stock();
+            if (availableStock == null)
+            {
+                await _businessDbContext.Stocks.AddAsync(stocks);
+                await _businessDbContext.SaveChangesAsync();
+                return Ok("Stock saved.");
+            }
+
             availableStock.Products.Quantity = stocks.Products.Quantity;
 
             var result = await _businessDbContext.SaveChangesAsync();
+            if (result > 0)
+                return Ok("Stock saved successfully.");
 
-            if (result.Equals(1))
-                return Ok();
-
-            return BadRequest();
+            return BadRequest("Failed to save stock.");
         }
 
-        [HttpPut("/decreasequantity")]
+        [HttpPut("decreasequantity")]
         public async Task<IActionResult> DecreaseQuantity(long productId, long sentQuantity)
         {
             if (sentQuantity <= 0)
                 return BadRequest("The decrease quantity must be more than zero.");
 
             var availableStock = await _businessDbContext.Stocks
-                                    .Include(s => s.Products)
-                                    .FirstOrDefaultAsync(s => s.ProductId == productId && !s.IsDeleted);
+                                            .Include(s => s.Products)
+                                            .FirstOrDefaultAsync(s => s.ProductId == productId && !s.IsDeleted);
 
             if (availableStock is null)
                 return NotFound("The product was not found in stock.");
@@ -102,7 +128,7 @@ namespace IAutomotiveProductsApi.Controllers
 
             var result = await _businessDbContext.SaveChangesAsync();
             if (result > 0)
-                return Ok("Quantaty sucessfully decreased.");
+                return Ok("Quantity successfully decreased.");
 
             return BadRequest("Error decreasing the quantity.");
         }
@@ -113,24 +139,19 @@ namespace IAutomotiveProductsApi.Controllers
             if (receivedQuantity <= 0)
                 return BadRequest("The increase quantity must be more than zero.");
 
-            // Buscar o estoque do produto especificado
             var availableStock = await _businessDbContext.Stocks
                                     .Include(s => s.Products)
                                     .FirstOrDefaultAsync(s => s.ProductId == productId && !s.IsDeleted);
 
-            // Verificar se o estoque foi encontrado
             if (availableStock is null)
                 return NotFound("The product was not found in stock.");
 
-            // Verificar se a quantidade é suficiente para a diminuição
             var quantityAvailable = availableStock.QuantityReceived - availableStock.QuantitySent;
             if (quantityAvailable < receivedQuantity)
                 return BadRequest("Quantity is not enough.");
 
-            // Diminuir a quantidade usando o método Decrease
             availableStock.Increase(receivedQuantity);
 
-            // Salvar as alterações no banco de dados
             var result = await _businessDbContext.SaveChangesAsync();
             if (result > 0)
                 return Ok("Quantity sucessfully increased.");
