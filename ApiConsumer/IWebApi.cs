@@ -22,6 +22,24 @@ namespace ApiConsumer
 
         [Post("/saveproduct")]
         Task<HttpResponseMessage> SaveProduct([FromBody] AutomotiveProducts.Entities.Products product);
+
+        [Get("/getstock")]
+        Task<List<AutomotiveProducts.Entities.Stock>> GetStock();
+
+        [Get("/getstocks")]
+        Task<AutomotiveProducts.Entities.Stock> GetStocks(long id);
+
+        [Put("/updatestock")]
+        Task<HttpResponseMessage> UpdateStock([FromBody] AutomotiveProducts.Entities.Stock stocks);
+
+        [Post("/savestock")]
+        Task<HttpResponseMessage> GetStock([FromBody] AutomotiveProducts.Entities.Stock stocks);
+
+        [Put("/stocks/{id}/increase")]
+        Task<HttpResponseMessage> IncreaseQuantity(long id, [FromBody] long receivedQuantity);
+
+        [Put("/stocks/{id}/decrease")]
+        Task<HttpResponseMessage> DecreaseQuantity(long id, [FromBody] long sentQuantity);
     }
 }
 
