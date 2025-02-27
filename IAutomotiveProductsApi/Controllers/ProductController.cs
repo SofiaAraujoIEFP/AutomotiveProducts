@@ -18,7 +18,7 @@ namespace IAutomotiveProductsApi.Controllers
         [HttpGet("/getproducts")]
         public async Task<IActionResult> GetProducts()
         {
-            var taskTable = await _businessDbContext.Product.Where(t => t.IsDeleted == false).ToListAsync();
+            var taskTable = await _businessDbContext.Products.Where(t => t.IsDeleted == false).ToListAsync();
 
             if (!taskTable.Any())
                 return NotFound();
@@ -29,18 +29,20 @@ namespace IAutomotiveProductsApi.Controllers
         [HttpGet("/getproduct")]
         public async Task<IActionResult> GetProduct(int Id)
         {
-            var taskTable = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.IsDeleted == false && t.Id.Equals(Id));
+            var taskTable = await _businessDbContext.Products.FirstOrDefaultAsync(t => t.IsDeleted == false && t.Id.Equals(Id));
 
             if (taskTable is null)
                 return NotFound();
             else
                 return Ok(taskTable);
         }
+      
+
 
         [HttpPost("/addproducts")]
         public async Task<IActionResult> AddProducts(AutomotiveProducts.Entities.Products product)
         {
-            var oldproduct = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(product.Id));
+            var oldproduct = await _businessDbContext.Products.FirstOrDefaultAsync(t => t.Id.Equals(product.Id));
 
             if (product is null)
                 return BadRequest();
@@ -57,7 +59,7 @@ namespace IAutomotiveProductsApi.Controllers
             newProduct.IsDeleted = product.IsDeleted;
             newProduct.IsCompleted = product.IsCompleted;
 
-            _businessDbContext.Product.Add(newProduct);
+            _businessDbContext.Products.Add(newProduct);
 
             var result = await _businessDbContext.SaveChangesAsync();
 
@@ -70,7 +72,7 @@ namespace IAutomotiveProductsApi.Controllers
         [HttpDelete("/deleteproduct")]
         public async Task<ActionResult> DeleteProduct(long Id)
         {
-            var product = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(Id));
+            var product = await _businessDbContext.Products.FirstOrDefaultAsync(t => t.Id.Equals(Id));
 
             if (product is null)
                 return BadRequest();
@@ -88,11 +90,11 @@ namespace IAutomotiveProductsApi.Controllers
         [HttpPut("/updateproduct")]
         public async Task<IActionResult> Updateproduct(AutomotiveProducts.Entities.Products product)
         {
-            var newProduct = await _businessDbContext.Product.FirstOrDefaultAsync(t => t.Id.Equals(product.Id));
+            var newProduct = await _businessDbContext.Products.FirstOrDefaultAsync(t => t.Id.Equals(product.Id));
 
             if (newProduct is null)
             {
-                await _businessDbContext.Product.AddAsync(product);
+                await _businessDbContext.Products.AddAsync(product);
                 await _businessDbContext.SaveChangesAsync();
                 return Ok();
             }
@@ -136,7 +138,5 @@ namespace IAutomotiveProductsApi.Controllers
 
             return BadRequest();
         }
-
-
     }
 }

@@ -16,13 +16,12 @@
 @* Ter adicionado um botão em cima da tabela principal new product que direcione a uma nova página para que o cliente possa adicionar produtos *@
 
 <PageTitle>Home</PageTitle>
-<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" OnClick="@(AddProducts)">Add Product</MudButton>
-
+<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Dark" OnClick="@(AddProducts)">Add Product</MudButton>
 <MudTable Items="product" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
-        <MudTh>Title</MudTh>
-        <MudTh>Description</MudTh>
-        <MudTh>Quantity</MudTh>
+        <MudTh Style="background-color: steelblue; color: white; text-align: center;">Title</MudTh>
+        <MudTh Style="background-color: gray; color: white; text-align: center;">Description</MudTh>
+        <MudTh Style="background-color: steelblue; color: white; text-align: center;">Quantity</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Title">@context.Title</MudTd>

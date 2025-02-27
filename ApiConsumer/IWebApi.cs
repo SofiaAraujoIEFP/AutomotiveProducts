@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Refit;
-//using IAutomotiveProductsApi.Models;
+using IAutomotiveProductsApi.Controllers;
 namespace ApiConsumer
 {
     internal interface IWebAPI
@@ -35,11 +35,17 @@ namespace ApiConsumer
         [Post("/savestock")]
         Task<HttpResponseMessage> GetStock([FromBody] AutomotiveProducts.Entities.Stock stocks);
 
-        [Put("/stocks/{id}/increase")]
+        [Put("/increase")]
         Task<HttpResponseMessage> IncreaseQuantity(long id, [FromBody] long receivedQuantity);
 
-        [Put("/stocks/{id}/decrease")]
+        [Put("/decrease")]
         Task<HttpResponseMessage> DecreaseQuantity(long id, [FromBody] long sentQuantity);
+
+        [Post("/getquantity")]
+        Task<List<AutomotiveProducts.Entities.Stock>> GetQuantity([FromBody] AutomotiveProducts.Entities.Stock stocks);
+
+        //[Put("/getstockbyproductid")]
+        //Task<AutomotiveProducts.Entities.Stock> GetStockByProductId(long id);
     }
 }
 

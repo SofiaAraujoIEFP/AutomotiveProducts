@@ -1,7 +1,6 @@
 ﻿using AutomotiveProducts.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 using AutomotiveProducts.Entities;
 
 namespace IAutomotiveProductsApi.Controllers
@@ -28,7 +27,7 @@ namespace IAutomotiveProductsApi.Controllers
                 return Ok(taskTable);
         }
 
-        [HttpGet("/getstocks/{Id}")]
+        [HttpGet("/getstocks")]
         public async Task<IActionResult> GetStocks(int Id)
         {
             var taskTable = await _businessDbContext.Stocks.FirstOrDefaultAsync(t => t.IsDeleted == false && t.Id.Equals(Id));
@@ -158,5 +157,32 @@ namespace IAutomotiveProductsApi.Controllers
 
             return BadRequest("Error increasing the quantity.");
         }
+
+        [HttpGet("/getquantity")]
+        public async Task<IActionResult> GetQuantity()
+        {
+            var products = await _businessDbContext.Products
+                .Where(p => !p.IsDeleted) // Filtrar os produtos não deletados
+                .ToListAsync();
+
+            if (!products.Any())
+                return NotFound();
+
+            return Ok(products);
+        }
+
+        //[HttpGet("/getstockbyproductid")]
+        //public async Task<IActionResult> GetStockByProductId(long productId)
+        //{
+        //    var stock = await _businessDbContext.Stocks
+        //        .Include(s => s.Products)  // Incluir produtos no estoque
+        //        .FirstOrDefaultAsync(s => s.ProductId == productId && !s.IsDeleted);
+
+        //    if (stock == null)
+        //        return NotFound();
+
+        //    return Ok(stock);
+        //}
+
     }
 }

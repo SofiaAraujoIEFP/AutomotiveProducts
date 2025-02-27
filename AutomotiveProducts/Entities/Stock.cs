@@ -16,6 +16,8 @@ namespace AutomotiveProducts.Entities
         public bool IsCompleted { get; set; }
         public long QuantityReceived { get; set; }
         public long QuantitySent { get; set; }
+        public DateTime EntryRegistry {  get; set; }
+        public DateTime ExitRegistry {  get; set; }
 
         public void Decrease(long sentQuantity)
         {
