@@ -1,0 +1,79 @@
+﻿@page "/addproducts"
+@using AutomotiveProducts.Entities;
+@using Refit;
+@inject IWebAPI WebAPI
+@rendermode InteractiveServer
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>Add Products</h3>
+
+<EditForm FormName="ProductEditForm" Model="_product">
+    <div class="row">
+        <label>Title</label>
+        <InputText @bind-Value="_product.Title" />
+
+        <label>Category</label>
+        <InputText @bind-Value="_product.Category" />
+
+        <label>Description</label>
+        <InputText @bind-Value="_product.Description" />
+
+        <label>Cost Price</label>
+        <InputNumber @bind-Value="_product.CostPrice" />
+
+        <label>Sale Price</label>
+        <InputNumber @bind-Value="_product.SalePrice" />
+
+        <label>Supplier</label>
+        <InputText @bind-Value="_product.Supplier" />
+
+        <label>Supplier Reference</label>
+        <InputNumber @bind-Value="_product.SupplierRef" />
+
+        <label>Supplier Reference Type</label>
+        <InputText @bind-Value="_product.SupplierRefType" />
+
+        <label>Quantity</label>
+        <InputNumber @bind-Value="_product.Quantity" />
+
+        <MudButton Variant="Variant.Filled"
+        Color="Color.Primary"
+        OnClick="@(() => AddProduct())"
+        type="submit"
+        EndIcon="@Icons.Material.Filled.Save">
+        </MudButton>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    // Se o Id não for nulo significa que nós estamos a procurar um Id que já existe
+    public int? Id { get; set; }
+
+    private AutomotiveProducts.Entities.Products _product = new()
+    {
+        IsCompleted = false,
+        IsDeleted = false,
+    };
+
+    private async void EditProduct()
+    {
+        var product = await WebAPI.Updateproduct(_product);
+
+        _product = new();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id is not null)
+        {
+            var product = await WebAPI.GetProduct(Id.Value);
+        }
+    }
+
+    private async void AddProduct()
+    {
+        var product = await WebAPI.AddProducts(_product);
+    }
+}

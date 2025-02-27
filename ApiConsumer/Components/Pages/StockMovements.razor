@@ -1,0 +1,100 @@
+﻿@* @page "/stockmovements/{id:int}"
+@page "/stockmovements"
+@using AutomotiveProducts.Entities
+@inject IWebAPI WebAPI
+@rendermode InteractiveServer *@
+
+<h3>Stock Movements</h3>
+
+@* Como é que fazemos para receber o produto já criado em vez de termos que inserir os dados do mesmo, 
+uma vez que queremos verificar a quantidade do produto já existente na BD *@
+
+@* <EditForm >
+    <div class="form-group">
+        <label>Product</label>
+        <select @bind="selectedProductId" class="form-control" >
+            <option value="">Select a Product</option>
+            @foreach (var product in products)
+            {
+                <option value="@product.Id">@product.Title</option>
+            }
+        </select>
+
+        <label>Quantity Received</label>
+        <InputNumber @bind-Value="stocks.QuantityReceived" class="form-control" />
+
+        <label>Quantity Sent</label>
+        <InputNumber @bind-Value="stocks.QuantitySent" class="form-control" />
+
+        <label>Entry Registry</label>
+        <InputNumber @bind-Value="stocks.EntryRegistry" class="form-control" />
+
+        <label>Exit Registry</label>
+        <InputNumber @bind-Value="stocks.ExitRegistry" class="form-control" />
+
+        <!-- Blue Save button -->
+        <button type="submit" class="btn btn-primary" style="background-color: #007bff;">Save</button>
+    </div>
+</EditForm>
+ *@
+@* @code 
+{
+    [Parameter]
+    public long? Id { get; set; }
+
+    private Stock stocks = new();
+    private List<Products> products = new();
+    private long selectedProductId;
+
+    // private async Task GetQuantity()
+    // {
+    //     var result = await WebAPI.UpdateStock(stocks);
+    // }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Carregar todos os produtos disponíveis da API
+        products = await WebAPI.GetQuantity();
+
+        if (Id.HasValue)
+        {
+            // Carregar os dados do estoque do produto caso o ID seja passado na URL
+            await LoadProductDataById(Id.Value);
+        }
+    }
+
+    private async Task LoadProductData()
+    {
+        if (selectedProductId > 0)
+        {
+            // Carregar os dados de estoque para o produto selecionado
+            var productStock = await WebAPI.GetStockByProductId(selectedProductId);
+
+            if (productStock != null)
+            {
+                stocks = productStock;
+            }
+        }
+    }
+
+@*      protected override async Task OnParametersSetAsync()
+    private async Task LoadProductDataById(long productId)
+    {
+        // Carregar o estoque do produto usando o ID na URL
+        var productStock = await WebAPI.GetStockByProductId(productId);
+        if (productStock != null)
+        {
+            stocks = productStock;
+            selectedProductId = productStock.ProductId; // Definir o produto selecionado
+        }
+    }
+
+    private async Task UpdateStock()
+    {
+        if (stocks != null)
+        {
+            // Chamar a API para atualizar o estoque com os dados fornecidos
+            await WebAPI.UpdateStock(stocks);
+        }
+    } *@
+}

@@ -1,0 +1,66 @@
+﻿@* @page "/"
+@using IAutomotiveProductsApi
+@using IAutomotiveProductsApi.Models
+@using Products.Shared.Models
+@inject IWebAPI WebAPI
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer *@
+
+@page "/"
+@using AutomotiveProducts.Entities
+@using ApiConsumer
+@inject IWebAPI WebAPI
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+@* Ter adicionado um botão em cima da tabela principal new product que direcione a uma nova página para que o cliente possa adicionar produtos *@
+
+<PageTitle>Home</PageTitle>
+<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Dark" OnClick="@(AddProducts)">Add Product</MudButton>
+<MudTable Items="product" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh Style="background-color: steelblue; color: white; text-align: center;">Title</MudTh>
+        <MudTh Style="background-color: gray; color: white; text-align: center;">Description</MudTh>
+        <MudTh Style="background-color: steelblue; color: white; text-align: center;">Quantity</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Description">@context.Description</MudTd>
+        <MudTd DataLabel="Quantity">@context.Quantity</MudTd>
+        <MudTd DataLabel="Add">
+            <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Details" Color="Color.Primary" OnClick="@(() => NavigationDetail(context.Id))">Detail</MudButton>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteProduct(context.Id))">Delete</MudButton>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => NavigationStock(context.Id))">Stock</MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code
+{
+    List<AutomotiveProducts.Entities.Products> product { get; set; } = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        product = await WebAPI.GetProducts();
+    }
+
+    private async void DeleteProduct(long id)
+    {
+        var response = await WebAPI.DeleteProduct(id);
+    }
+
+    private void NavigationDetail(long id)
+    {
+        NavigationManager.NavigateTo($"product/{id}", true);
+    }
+
+    private void NavigationStock(long id)
+    {
+        NavigationManager.NavigateTo($"stockmovements/{id}", true);
+    }
+
+    private async void AddProducts()
+    {
+        NavigationManager.NavigateTo("addproducts/", true);
+    }
+}
