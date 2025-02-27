@@ -161,7 +161,7 @@ namespace IAutomotiveProductsApi.Controllers
         [HttpGet("/getquantity")]
         public async Task<IActionResult> GetQuantity()
         {
-            var products = await _businessDbContext.Products
+            var products = await _businessDbContext.Product
                 .Where(p => !p.IsDeleted) // Filtrar os produtos não deletados
                 .ToListAsync();
 
