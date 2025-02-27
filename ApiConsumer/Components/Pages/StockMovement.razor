@@ -1,0 +1,37 @@
+﻿@* @page "/StockMovements"
+@using AutomotiveProducts.Entities;
+@using Refit;
+@inject IWebAPI WebAPI
+@rendermode InteractiveServer
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<EditForm FormName="ProductEditForm" Model="_stocks">
+    <div class="row">
+        <label>Title</label>
+        <InputText @bind-Value="_product.Title" />
+
+        <label>Moved Quantity</label>
+        <InputNumber @bind-Value="_stock.MovedQuantity"
+<label>Movement Date</label>
+        <InputText @bind-Value="_stock.MovementDate
+
+
+ <MudButton Variant="Variant.Filled"
+ Color="Color.Primary"
+ MudSelect product.id @bind 
+        <MudButton Variant="Variant.Filled"
+        Color="Color.Primary"
+        OnClick="@(() => AddMovement())"
+        type="submit"
+        EndIcon="@Icons.Material.Filled.Save">
+        </MudButton>
+    </div>
+</EditForm>
+
+@code
+private async Task AddMovement();
+{ var product= await WebAPI.AddMovement(_stock);
+
+O método addMovement vai pegar na variável existente quantity e vai vai fazer somas 
+ *@

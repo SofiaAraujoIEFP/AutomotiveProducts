@@ -14,5 +14,6 @@ namespace AutomotiveProducts.Entities
         public Products Products { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsCompleted { get; set; }
+        public DateTime MovementDate { get; set; }
     }
 }

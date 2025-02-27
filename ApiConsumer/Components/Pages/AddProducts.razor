@@ -38,10 +38,10 @@
         <InputNumber @bind-Value="_product.Quantity" />
 
         <MudButton Variant="Variant.Filled"
-        Color="Color.Primary"
-        OnClick="@(() => AddProduct())"
-        type="submit"
-        EndIcon="@Icons.Material.Filled.Save">
+                   Color="Color.Primary"
+                   OnClick="@(() => AddProduct())"
+                   type="submit"
+                   EndIcon="@Icons.Material.Filled.Save">
         </MudButton>
     </div>
 </EditForm>
@@ -52,10 +52,10 @@
     public int? Id { get; set; }
 
     private AutomotiveProducts.Entities.Products _product = new()
-    {
-        IsCompleted = false,
-        IsDeleted = false,
-    };
+        {
+            IsCompleted = false,
+            IsDeleted = false,
+        };
 
     private async void EditProduct()
     {

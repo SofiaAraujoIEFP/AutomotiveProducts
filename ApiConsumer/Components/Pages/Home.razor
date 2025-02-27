@@ -16,13 +16,47 @@
 @* Ter adicionado um botão em cima da tabela principal new product que direcione a uma nova página para que o cliente possa adicionar produtos *@
 
 <PageTitle>Home</PageTitle>
-<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" OnClick="@(AddProducts)">Add Product</MudButton>
+<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Warning" OnClick="@(AddProducts)">Add Product</MudButton>
 
-<MudTable Items="product" Hover="true" Breakpoint="Breakpoint.Sm">
+@* <MudTable Items="product" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
         <MudTh>Title</MudTh>
         <MudTh>Description</MudTh>
         <MudTh>Quantity</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Description">@context.Description</MudTd>
+        <MudTd DataLabel="Quantity">@context.Quantity</MudTd>
+        <MudTd DataLabel="Add">
+            <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Details" Color="Color.Primary" OnClick="@(() => NavigationDetail(context.Id))">Detail</MudButton>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteProduct(context.Id))">Delete</MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+ *@
+@* <MudTable Items="product" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh Style="text-align: center;">Title</MudTh>
+        <MudTh Style="text-align: center;">Description</MudTh>
+        <MudTh Style="text-align: center;">Quantity</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Description">@context.Description</MudTd>
+        <MudTd DataLabel="Quantity">@context.Quantity</MudTd>
+        <MudTd DataLabel="Add">
+            <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Details" Color="Color.Primary" OnClick="@(() => NavigationDetail(context.Id))">Detail</MudButton>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="@(() => DeleteProduct(context.Id))">Delete</MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable> *@
+
+<MudTable Items="product" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh Style="text-align: center; background-color: #f5b841; color: white;">Title</MudTh>
+        <MudTh Style="text-align: center; background-color: #f5b841; color: white;">Description</MudTh>
+        <MudTh Style="text-align: center; background-color: #f5b841; color: white;">Quantity</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Title">@context.Title</MudTd>
